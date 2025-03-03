@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Startpage</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="icon.png" type="image/png"> <!-- Favicon -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a2e;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100vh;
+        }
+        .greeting {
+            font-size: 3.5em;
+            font-weight: 700;
+            transition: transform 0.3s ease, color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+        .greeting img {
+            width: 40px; /* Set the size of the icon */
+            height: 40px;
+            filter: brightness(0) invert(1); /* Make the icon white */
+        }
+        .greeting:hover {
+            transform: scale(1.1);
+            color: #bb86fc;
+        }
+        .date {
+            font-size: 1.5em;
+            margin-top: 10px;
+        }
+        .date .normal {
+            color: #bbb; /* Normal text color for "Today is" */
+        }
+        .date .purple {
+            color: #bb86fc; /* Purple color for the rest of the date */
+        }
+        .date .comma {
+            color: #bb86fc; /* Purple color for the comma */
+        }
+        .search-bar {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input {
+            padding: 18px;
+            font-size: 1.5em;
+            border-radius: 20px;
+            border: 2px solid transparent;
+            outline: none;
+            width: 450px;
+            background-color: #2a2a3d;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .search-bar input:hover {
+            background-color: #35354d;
+        }
+        .search-bar input:focus {
+            background-color: #35354d;
+            border: 2px solid #bb86fc;
+        }
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .search-bar input:focus::placeholder {
+            color: #bb86fc;
+        }
+        .search-bar input:focus {
+            width: 550px;
+        }
+        .links {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .links a {
+            color: #bb86fc;
+            text-decoration: none;
+            font-size: 1.4em;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s ease;
+        }
+        .links a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #bb86fc;
+            transform: scale(1.05);
+        }
+        .links img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+            filter: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="greeting" id="greeting">
+        <img src="file:///C:/Stuff/Do%20not%20delete/Firefox%20startpage/hello.png" alt="Hello Icon">
+    </div>
+    
+    <!-- Date Display -->
+    <div class="date" id="date"></div>
+
+    <!-- Google Search Bar -->
+    <div class="search-bar">
+        <input type="text" id="google-search" placeholder="Search Google..." onkeydown="if(event.key === 'Enter'){ window.location.href = 'https://www.google.com/search?q=' + document.getElementById('google-search').value; }">
+    </div>
+
+    <!-- Bookmarks -->
+    <div class="links">
+        <a href="https://www.youtube.com" target="_blank">
+            <img src="file:///C:/Stuff/Do%20not%20delete/Firefox%20startpage/youtube-icon.png" alt="YouTube Icon"> YouTube
+        </a>
+        <a href="https://chat.openai.com" target="_blank">
+            <img src="file:///C:/Stuff/Do%20not%20delete/Firefox%20startpage/chatgpt-icon.png" alt="ChatGPT Icon"> ChatGPT
+        </a>
+        <a href="https://www.reddit.com" target="_blank">
+            <img src="file:///C:/Stuff/Do%20not%20delete/Firefox%20startpage/reddit-icon.png" alt="Reddit Icon"> Reddit
+        </a>
+        <a href="https://discord.com/channels/@me" target="_blank">
+            <img src="file:///C:/Stuff/Do%20not%20delete/Firefox%20startpage/discord-icon.png" alt="Discord Icon"> Discord
+        </a>
+    </div>
+
+    <script>
+        function updateGreeting() {
+            const hours = new Date().getHours();
+            let greetingText = "Good evening";
+            
+            if (hours >= 5 && hours < 12) {
+                greetingText = "Good morning";
+            } else if (hours >= 12 && hours < 17) {
+                greetingText = "Good afternoon";
+            } else if (hours >= 17 && hours < 21) {
+                greetingText = "Good evening";
+            } else {
+                greetingText = "Good night";
+            }
+
+            document.getElementById("greeting").textContent = `${greetingText}, Egor`;
+        }
+
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const date = new Date();
+            const formattedDate = date.toLocaleDateString('en-GB', options);
+            const dateParts = formattedDate.split(', ');
+
+            // Make "Today is" normal gray, and the rest of the date (Monday, 3 March 2025) purple, including the comma
+            document.getElementById("date").innerHTML = `<span class="normal">Today is </span><span class="purple">${dateParts[0]}</span><span class="comma">,</span> <span class="purple">${dateParts[1]}</span>`;
+        }
+
+        updateGreeting();
+        updateDate();
+    </script>
+</body>
+</html>
