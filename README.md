@@ -1,5 +1,6 @@
 # Catppuccin firefox config
 made by **rset** with the help of [catppuccin](https://catppuccin.com/)
+
 [reddit showcase](https://www.reddit.com/r/FirefoxCSS/comments/1j2rlp5/beautiful_catppuccin_firefox_theme_custom/)
 
 ## Tut
